@@ -8,9 +8,13 @@ import '../constants/constants.dart';
 class CountryContainer extends StatelessWidget {
   final Result result;
   final String countryId;
+  final String countryName;
 
   const CountryContainer(
-      {super.key, required this.result, required this.countryId});
+      {super.key,
+      required this.result,
+      required this.countryId,
+      required this.countryName});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,8 @@ class CountryContainer extends StatelessWidget {
         Navigator.push(
             context,
             PageTransition(
-                child: LeaguesScreen(countryId: countryId),
+                child: LeaguesScreen(
+                    countryId: countryId, countryName: countryName),
                 type: PageTransitionType.rightToLeft));
       },
       child: Container(

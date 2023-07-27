@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_app/Data/Cubits/Leagues%20Cubit/leagues_cubit.dart';
 import 'package:sports_app/Data/Cubits/Star%20Cubit/star_cubit.dart';
-import 'package:sports_app/constants/constants.dart';
+import 'package:sports_app/Shared/league_container.dart';
 
 class LeaguesScreen extends StatefulWidget {
   final String countryId;
-  const LeaguesScreen({super.key, required this.countryId});
+  final String countryName;
+  const LeaguesScreen(
+      {super.key, required this.countryId, required this.countryName});
 
   @override
   State<LeaguesScreen> createState() => _LeaguesScreenState();
@@ -22,7 +24,10 @@ class _LeaguesScreenState extends State<LeaguesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(widget.countryName),
+        centerTitle: true,
+      ),
       body: BlocBuilder<LeaguesCubit, LeaguesState>(
         builder: (context, state) {
           if (state is LeaguesLoading) {
@@ -39,32 +44,11 @@ class _LeaguesScreenState extends State<LeaguesScreen> {
                     padding: const EdgeInsets.all(10),
                     itemCount: leaguesList!.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        decoration: const BoxDecoration(
-                            boxShadow: [BoxShadow(blurRadius: 3)],
-                            color: componentsBackgroundColor),
-                        child: ListTile(
-                          trailing: IconButton(
-                              onPressed: () {
-                                context.read<StarCubit>().changeStar();
-                              },
-                              icon: Icon(
-                                context.read<StarCubit>().isStarred
-                                    ? Icons.star_border_outlined
-                                    : Icons.star,
-                                color: const Color.fromARGB(255, 230, 176, 2),
-                              )),
-                          leading: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(leaguesList[index].leagueLogo!),
-                          ),
-                          title: Text(
-                            leaguesList[index].leagueName!,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      );
+                      return LeagueContainer(
+                          leaguesList: leaguesList,
+                          index: index,
+                          leagueId: leaguesList[index].leagueKey.toString(),
+                          leagueName: leaguesList[index].leagueName!);
                     });
               },
             );

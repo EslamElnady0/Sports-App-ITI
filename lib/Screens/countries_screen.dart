@@ -41,6 +41,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 mainAxisSpacing: 5,
                 children: countriesList!.map((e) {
                   return CountryContainer(
+                    countryName: e.countryName!,
                     countryId: e.countryKey.toString(),
                     result: e,
                   );

@@ -6,9 +6,10 @@ part 'star_state.dart';
 class StarCubit extends Cubit<StarState> {
   StarCubit() : super(StarInitial());
 
-  bool isStarred = true;
-  void changeStar() {
-    isStarred = !isStarred;
+  List<bool> isFavourited = [];
+  bool isStarred = false;
+  void changeStar(int index) {
+    isFavourited[index] = !isFavourited[index];
     emit(StarChange());
   }
 }
