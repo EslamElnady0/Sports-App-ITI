@@ -1,16 +1,16 @@
 import 'result.dart';
 
-class TopScorers {
+class Players {
   int? success;
   List<Result>? result;
 
-  TopScorers({this.success, this.result});
+  Players({this.success, this.result});
 
-  factory TopScorers.fromJson(Map<String, dynamic> json) => TopScorers(
+  factory Players.fromJson(Map<String, dynamic> json) => Players(
         success: json['success'] as int?,
-        result: (json['result'] as List<dynamic>?)
+        result: ((json['result'] as List<dynamic>?)
                 ?.map((e) => Result.fromJson(e as Map<String, dynamic>))
-                .toList() ??
+                .toList()) ??
             [],
       );
 

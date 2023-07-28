@@ -12,8 +12,10 @@ class TopScorersCubit extends Cubit<TopScorersState> {
     emit(TopScorersLoading());
 
     TopScorersRepo().getTopScorers(leagueId).then((value) {
-      if (value != null) {
+      if (value != null && value.result != []) {
         emit(TopScorersSuccess(response: value));
+      } else if (value != null && value.result == []) {
+        emit(TopScorersEmptyList());
       } else {
         emit(TopScorersFailure());
       }

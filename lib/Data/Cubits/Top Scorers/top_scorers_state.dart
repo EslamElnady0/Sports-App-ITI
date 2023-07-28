@@ -12,4 +12,6 @@ class TopScorersSuccess extends TopScorersState {
   TopScorersSuccess({required this.response});
 }
 
+class TopScorersEmptyList extends TopScorersState {}
+
 class TopScorersFailure extends TopScorersState {}

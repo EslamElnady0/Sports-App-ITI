@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../Data/Models/Countries/result.dart';
-import '../Screens/leagues_screen.dart';
-import '../constants/constants.dart';
+import '../../Data/Models/Countries/result.dart';
+import '../../Screens/leagues_screen.dart';
+import '../../constants/constants.dart';
 
 class CountryContainer extends StatelessWidget {
   final Result result;
@@ -26,13 +26,16 @@ class CountryContainer extends StatelessWidget {
             context,
             PageTransition(
                 child: LeaguesScreen(
-                    countryId: countryId, countryName: countryName),
+                    countryLogo: result.countryLogo!,
+                    countryId: countryId,
+                    countryName: countryName),
                 type: PageTransitionType.rightToLeft));
       },
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
             color: componentsBackgroundColor,
-            boxShadow: [BoxShadow(blurRadius: 5)]),
+            boxShadow: const [BoxShadow(blurRadius: 5)]),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: 10),
           child: Column(
