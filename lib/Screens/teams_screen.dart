@@ -34,12 +34,15 @@ class _TeamsScreenState extends State<TeamsScreen> {
       } else if (state is TeamsSuccess) {
         List<TeamResult> teamsList = state.response.result!;
         return Padding(
-          padding: const EdgeInsets.all(6.0),
+          padding: const EdgeInsets.all(5.0),
           child: Column(
             children: [
-              SearchTextField(
-                query: "team",
-                onChanged: (String) {},
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: SearchTextField(
+                  query: "team",
+                  onChanged: (String) {},
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -47,6 +50,7 @@ class _TeamsScreenState extends State<TeamsScreen> {
               Expanded(
                 child: AnimationLimiter(
                   child: GridView.count(
+                      padding: const EdgeInsets.all(5),
                       crossAxisCount: 3,
                       crossAxisSpacing: 5,
                       childAspectRatio: 1,
