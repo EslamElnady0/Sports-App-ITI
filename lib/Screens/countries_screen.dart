@@ -80,11 +80,14 @@ class _CountriesScreenState extends State<CountriesScreen> {
                             var value = e.value;
                             return AnimationConfiguration.staggeredGrid(
                               columnCount: 3,
-                              duration: const Duration(milliseconds: 2000),
+                              duration: const Duration(milliseconds: 1500),
                               position: index,
                               child: FadeInAnimation(
                                 curve: Curves.easeIn,
                                 child: SlideAnimation(
+                                  duration: const Duration(milliseconds: 900),
+                                  horizontalOffset:
+                                      MediaQuery.of(context).size.width,
                                   verticalOffset:
                                       MediaQuery.of(context).size.height,
                                   child: CountryContainer(

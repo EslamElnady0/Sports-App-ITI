@@ -76,6 +76,7 @@ class _PlayersScreenState extends State<PlayersScreen> {
                               position: index,
                               duration: const Duration(milliseconds: 1500),
                               child: FadeInAnimation(
+                                curve: Curves.bounceIn,
                                 child: SlideAnimation(
                                   horizontalOffset:
                                       MediaQuery.of(context).size.width,
