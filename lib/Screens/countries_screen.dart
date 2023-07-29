@@ -54,16 +54,20 @@ class _CountriesScreenState extends State<CountriesScreen> {
             List<Result>? countriesList = state.response.result;
 
             return Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5),
               child: Column(
                 children: [
-                  SearchTextField(
-                    // controller: _searchController,
-                    query: "country",
-                    onChanged: (String value) {
-                      // _filteredItems =
-                      //     filterItems(_searchController.text, countriesList);
-                    },
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: SearchTextField(
+                      // controller: _searchController,
+                      query: "country",
+                      onChanged: (String value) {
+                        // _filteredItems =
+                        //     filterItems(_searchController.text, countriesList);
+                      },
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -71,6 +75,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                   Expanded(
                     child: AnimationLimiter(
                       child: GridView.count(
+                          padding: EdgeInsets.all(5),
                           crossAxisCount: 3,
                           crossAxisSpacing: 5,
                           childAspectRatio: 1,
