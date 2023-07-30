@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sports_app/Data/Cubits/Leagues%20Cubit/leagues_cubit.dart';
-import 'package:sports_app/Data/Cubits/Star%20Cubit/star_cubit.dart';
+import 'package:sports_app/Data/Cubits/Search/search_cubit.dart';
 import 'package:sports_app/Data/Cubits/Teams/teams_cubit.dart';
 import 'package:sports_app/Data/Cubits/Top%20Scorers/top_scorers_cubit.dart';
 import 'package:sports_app/Data/Cubits/players/players_cubit.dart';
@@ -26,7 +26,7 @@ class SportsApp extends StatelessWidget {
         BlocProvider(create: (context) => TeamsCubit()),
         BlocProvider(create: (context) => TopScorersCubit()),
         BlocProvider(create: (context) => PlayersCubit()),
-        BlocProvider(create: (context) => StarCubit()),
+        BlocProvider(create: (context) => SearchCubit())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

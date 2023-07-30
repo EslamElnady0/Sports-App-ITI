@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:sports_app/Data/Models/Countries/result.dart';
-import 'package:sports_app/Shared/widgets/country_container.dart';
+import 'package:sports_app/Screens/leagues_screen.dart';
 import 'package:sports_app/Shared/widgets/search_text_field.dart';
+import 'package:sports_app/Shared/widgets/grid_container.dart';
 
 import '../Data/Cubits/Countries Cubit/countries_cubit.dart';
+import '../Shared/methods/grid_map_body.dart';
 
 class CountriesScreen extends StatefulWidget {
   const CountriesScreen({super.key});
@@ -15,18 +17,15 @@ class CountriesScreen extends StatefulWidget {
 }
 
 class _CountriesScreenState extends State<CountriesScreen> {
-  // TextEditingController _searchController = TextEditingController();
-  // List<Result>? _filteredItems = [];
-
-  // List<Result>? filterItems(String query, List<Result>? countryList) {
-  //   List<Result>? filteredList = [];
-  //   for (Result item in countryList!) {
-  //     if (item.countryName!.toLowerCase().contains(query.toLowerCase())) {
-  //       filteredList.add(item);
-  //     }
-  //   }
-  //   return filteredList;
-  // }
+  TextEditingController searchController = TextEditingController();
+  late List<Result>? filteredList;
+  void searchItems(List<Result>? countriesList, String value) {
+    filteredList = countriesList!
+        .where((element) =>
+            element.countryName!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -38,6 +37,9 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Countries"),
@@ -61,11 +63,10 @@ class _CountriesScreenState extends State<CountriesScreen> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: SearchTextField(
-                      // controller: _searchController,
+                      controller: searchController,
                       query: "country",
                       onChanged: (String value) {
-                        // _filteredItems =
-                        //     filterItems(_searchController.text, countriesList);
+                        searchItems(countriesList, value);
                       },
                     ),
                   ),
@@ -75,37 +76,49 @@ class _CountriesScreenState extends State<CountriesScreen> {
                   Expanded(
                     child: AnimationLimiter(
                       child: GridView.count(
-                          padding: EdgeInsets.all(5),
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 5,
-                          childAspectRatio: 1,
-                          mainAxisSpacing: 5,
-                          children: countriesList!.asMap().entries.map((e) {
-                            int index = e.key;
-                            var value = e.value;
-                            return AnimationConfiguration.staggeredGrid(
-                              columnCount: 3,
-                              duration: const Duration(milliseconds: 1500),
-                              position: index,
-                              child: FadeInAnimation(
-                                curve: Curves.easeIn,
-                                child: SlideAnimation(
-                                  duration: const Duration(milliseconds: 900),
-                                  horizontalOffset:
-                                      MediaQuery.of(context).size.width,
-                                  verticalOffset:
-                                      MediaQuery.of(context).size.height,
-                                  child: CountryContainer(
-                                    countryName: value.countryName!,
-                                    countryId: value.countryKey.toString(),
-                                    result: value,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }).toList()),
+                        padding: const EdgeInsets.all(5),
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 1,
+                        mainAxisSpacing: 5,
+                        children: searchController.text.isEmpty
+                            ? countriesList!.asMap().entries.map((e) {
+                                int index = e.key;
+                                var value = e.value;
+                                return gridMapBody(
+                                    index,
+                                    context,
+                                    GridContainer(
+                                        name: value.countryName!,
+                                        logo: value.countryLogo!,
+                                        nextScreen: LeaguesScreen(
+                                            countryId:
+                                                value.countryKey.toString(),
+                                            countryName: value.countryName!,
+                                            countryLogo: value.countryLogo!),
+                                        imageHeight: height * 0.07,
+                                        imageWidth: width * 0.4));
+                              }).toList()
+                            : filteredList!.asMap().entries.map((e) {
+                                int index = e.key;
+                                var value = e.value;
+                                return gridMapBody(
+                                    index,
+                                    context,
+                                    GridContainer(
+                                        name: value.countryName!,
+                                        logo: value.countryLogo!,
+                                        nextScreen: LeaguesScreen(
+                                            countryId:
+                                                value.countryKey.toString(),
+                                            countryName: value.countryName!,
+                                            countryLogo: value.countryLogo!),
+                                        imageHeight: height * 0.07,
+                                        imageWidth: width * 0.4));
+                              }).toList(),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             );

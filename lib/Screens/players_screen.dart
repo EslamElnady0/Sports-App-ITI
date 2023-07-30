@@ -5,6 +5,7 @@ import 'package:sports_app/Data/Cubits/players/players_cubit.dart';
 import 'package:sports_app/Shared/widgets/custom_container.dart';
 import 'package:sports_app/Shared/widgets/search_text_field.dart';
 
+import '../Data/Models/players/result.dart';
 import '../Shared/methods/player_dialog.dart';
 
 class PlayersScreen extends StatefulWidget {
@@ -22,6 +23,16 @@ class PlayersScreen extends StatefulWidget {
 }
 
 class _PlayersScreenState extends State<PlayersScreen> {
+  TextEditingController searchController = TextEditingController();
+  late List<Result>? filteredList;
+  void searchItems(List<Result>? playersList, String value) {
+    filteredList = playersList!
+        .where((element) =>
+            element.playerName!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    setState(() {});
+  }
+
   @override
   void initState() {
     context.read<PlayersCubit>().getTeamPlayer(widget.teamId);
@@ -55,14 +66,21 @@ class _PlayersScreenState extends State<PlayersScreen> {
               child: CircularProgressIndicator(color: Colors.white),
             );
           } else if (state is PlayersSuccess) {
-            var playerList = state.respose.result;
+            var playersList = state.respose.result;
             return Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(5.0),
               child: Column(
                 children: [
-                  SearchTextField(
-                    query: "player",
-                    onChanged: (String) {},
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0, vertical: 5),
+                    child: SearchTextField(
+                      controller: searchController,
+                      query: "player",
+                      onChanged: (String value) {
+                        searchItems(playersList, value);
+                      },
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -70,7 +88,10 @@ class _PlayersScreenState extends State<PlayersScreen> {
                   Expanded(
                     child: AnimationLimiter(
                       child: ListView.builder(
-                          itemCount: playerList!.length,
+                          padding: const EdgeInsets.all(5),
+                          itemCount: searchController.text.isEmpty
+                              ? playersList!.length
+                              : filteredList!.length,
                           itemBuilder: (context, index) {
                             return AnimationConfiguration.staggeredList(
                               position: index,
@@ -80,19 +101,30 @@ class _PlayersScreenState extends State<PlayersScreen> {
                                 child: SlideAnimation(
                                   horizontalOffset:
                                       MediaQuery.of(context).size.width,
-                                  child: ScaleAnimation(
-                                    duration: const Duration(milliseconds: 900),
-                                    curve: Curves.easeInCubic,
-                                    child: CustomContainer(
-                                        onTap: () {
-                                          playerDialog(
-                                              context, playerList, index);
-                                        },
-                                        trailing: playerList[index].playerType!,
-                                        playerName:
-                                            playerList[index].playerName!,
-                                        leading: playerList[index].playerImage),
-                                  ),
+                                  child: searchController.text.isEmpty
+                                      ? CustomContainer(
+                                          onTap: () {
+                                            playerDialog(
+                                                context, playersList, index);
+                                          },
+                                          trailing:
+                                              playersList![index].playerType!,
+                                          playerName:
+                                              playersList[index].playerName!,
+                                          leading:
+                                              playersList[index].playerImage)
+                                      ///////////////////////////////////////////////////////////////////////////////////
+                                      : CustomContainer(
+                                          onTap: () {
+                                            playerDialog(
+                                                context, filteredList!, index);
+                                          },
+                                          trailing:
+                                              filteredList![index].playerType!,
+                                          playerName:
+                                              filteredList![index].playerName!,
+                                          leading:
+                                              filteredList![index].playerImage),
                                 ),
                               ),
                             );

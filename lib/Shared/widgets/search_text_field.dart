@@ -6,9 +6,11 @@ class SearchTextField extends StatelessWidget {
   final String query;
   final TextEditingController? controller;
   final Function(String)? onChanged;
+  final Widget? suffixIcon;
 
   const SearchTextField({
     this.controller,
+    this.suffixIcon,
     required this.query,
     required this.onChanged,
     super.key,
@@ -25,6 +27,7 @@ class SearchTextField extends StatelessWidget {
         onChanged: onChanged,
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
+            suffixIcon: suffixIcon,
             hintText: "Search for a $query..",
             hintStyle: const TextStyle(color: Colors.grey),
             filled: true,

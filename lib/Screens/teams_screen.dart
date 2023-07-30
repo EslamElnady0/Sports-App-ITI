@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:sports_app/Data/Cubits/Teams/teams_cubit.dart';
 import 'package:sports_app/Data/Models/teams/result.dart';
+import 'package:sports_app/Screens/players_screen.dart';
+import 'package:sports_app/Shared/methods/grid_map_body.dart';
 import '../Shared/widgets/search_text_field.dart';
-import '../Shared/widgets/teams_container.dart';
+import '../Shared/widgets/grid_container.dart';
 
 class TeamsScreen extends StatefulWidget {
   final String leagueId;
@@ -16,6 +18,17 @@ class TeamsScreen extends StatefulWidget {
 }
 
 class _TeamsScreenState extends State<TeamsScreen> {
+  TextEditingController searchController = TextEditingController();
+  late List<TeamResult>? filteredList;
+
+  void searchItems(List<TeamResult>? teamsList, String value) {
+    filteredList = teamsList!
+        .where((element) =>
+            element.teamName!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    setState(() {});
+  }
+
   @override
   void initState() {
     context.read<TeamsCubit>().getAllTeams(widget.leagueId);
@@ -24,6 +37,9 @@ class _TeamsScreenState extends State<TeamsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return BlocBuilder<TeamsCubit, TeamsState>(builder: (context, state) {
       if (state is TeamsLoading) {
         return const Center(
@@ -40,8 +56,11 @@ class _TeamsScreenState extends State<TeamsScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 child: SearchTextField(
+                  controller: searchController,
                   query: "team",
-                  onChanged: (String) {},
+                  onChanged: (String value) {
+                    searchItems(teamsList, value);
+                  },
                 ),
               ),
               const SizedBox(
@@ -55,29 +74,43 @@ class _TeamsScreenState extends State<TeamsScreen> {
                       crossAxisSpacing: 5,
                       childAspectRatio: 1,
                       mainAxisSpacing: 5,
-                      children: teamsList.asMap().entries.map((e) {
-                        int index = e.key;
-                        var value = e.value;
-                        return AnimationConfiguration.staggeredGrid(
-                          duration: const Duration(milliseconds: 1500),
-                          position: index,
-                          columnCount: 3,
-                          child: FadeInAnimation(
-                            curve: Curves.easeIn,
-                            child: SlideAnimation(
-                              duration: const Duration(milliseconds: 900),
-                              curve: Curves.easeIn,
-                              horizontalOffset:
-                                  MediaQuery.of(context).size.width,
-                              verticalOffset:
-                                  MediaQuery.of(context).size.height,
-                              child: TeamsContainer(
-                                result: value,
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList()),
+                      children: searchController.text.isEmpty
+                          ? teamsList.asMap().entries.map((e) {
+                              int index = e.key;
+                              var value = e.value;
+                              return gridMapBody(
+                                  index,
+                                  context,
+                                  GridContainer(
+                                    logo: value.teamLogo!,
+                                    name: value.teamName!,
+                                    imageHeight: height * 0.08,
+                                    imageWidth: width * 0.18,
+                                    nextScreen: PlayersScreen(
+                                      teamLogo: value.teamLogo!,
+                                      teamName: value.teamName!,
+                                      teamId: value.teamKey.toString(),
+                                    ),
+                                  ));
+                            }).toList()
+                          : filteredList!.asMap().entries.map((e) {
+                              int index = e.key;
+                              var value = e.value;
+                              return gridMapBody(
+                                  index,
+                                  context,
+                                  GridContainer(
+                                    logo: value.teamLogo!,
+                                    name: value.teamName!,
+                                    imageHeight: height * 0.08,
+                                    imageWidth: width * 0.18,
+                                    nextScreen: PlayersScreen(
+                                      teamLogo: value.teamLogo!,
+                                      teamName: value.teamName!,
+                                      teamId: value.teamKey.toString(),
+                                    ),
+                                  ));
+                            }).toList()),
                 ),
               ),
             ],

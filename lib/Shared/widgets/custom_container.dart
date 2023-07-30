@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/constants.dart';
 
 class CustomContainer extends StatelessWidget {
-  final String trailing;
+  final String? trailing;
   final String playerName;
   final String leading;
   final Widget? subtitle;
@@ -13,7 +13,7 @@ class CustomContainer extends StatelessWidget {
       {super.key,
       this.subtitle,
       required this.onTap,
-      required this.trailing,
+      this.trailing,
       required this.playerName,
       required this.leading});
 
@@ -31,18 +31,21 @@ class CustomContainer extends StatelessWidget {
         trailing: Padding(
           padding: const EdgeInsets.only(right: 10.0),
           child: Text(
-            trailing,
+            trailing ?? '',
             style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
         leading: CircleAvatar(
           child: Container(
+            height: MediaQuery.of(context).size.height * 0.14,
+            width: MediaQuery.of(context).size.width * 0.14,
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
             child: Image.network(
               leading,
+              fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Image.network(
                     "https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1");

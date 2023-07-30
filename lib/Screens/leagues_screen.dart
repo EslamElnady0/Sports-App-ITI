@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sports_app/Data/Cubits/Leagues%20Cubit/leagues_cubit.dart';
-import 'package:sports_app/Shared/widgets/league_container.dart';
+import 'package:sports_app/Screens/teams_top_scorers_screen.dart';
+import 'package:sports_app/Shared/widgets/custom_container.dart';
 
 class LeaguesScreen extends StatefulWidget {
   final String countryId;
@@ -66,12 +68,25 @@ class _LeaguesScreenState extends State<LeaguesScreen> {
                       child: FadeInAnimation(
                         curve: Curves.bounceIn,
                         child: SlideAnimation(
-                          horizontalOffset: MediaQuery.of(context).size.width,
-                          child: LeagueContainer(
-                            leaguesList: leaguesList,
-                            index: index,
-                          ),
-                        ),
+                            horizontalOffset: MediaQuery.of(context).size.width,
+                            child: CustomContainer(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          child: TeamsAndScorersScreen(
+                                              leagueLogo: leaguesList[index]
+                                                  .leagueLogo!,
+                                              leagueId: leaguesList[index]
+                                                  .leagueKey
+                                                  .toString(),
+                                              leagueName: leaguesList[index]
+                                                  .leagueName!),
+                                          type:
+                                              PageTransitionType.bottomToTop));
+                                },
+                                playerName: leaguesList[index].leagueName!,
+                                leading: leaguesList[index].leagueLogo!)),
                       ),
                     );
                   }),

@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:sports_app/Screens/players_screen.dart';
 
-import '../../Data/Models/teams/result.dart';
 import '../../constants/constants.dart';
 
-class TeamsContainer extends StatelessWidget {
-  final TeamResult result;
-  const TeamsContainer({
-    required this.result,
+class GridContainer extends StatelessWidget {
+  final Widget nextScreen;
+  final double imageWidth, imageHeight;
+  final String name;
+  final String logo;
+
+  const GridContainer({
+    required this.name,
+    required this.logo,
+    required this.nextScreen,
+    required this.imageHeight,
+    required this.imageWidth,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            PageTransition(
-                child: PlayersScreen(
-                  teamLogo: result.teamLogo!,
-                  teamName: result.teamName!,
-                  teamId: result.teamKey.toString(),
-                ),
-                type: PageTransitionType.fade));
+        Navigator.push(context,
+            PageTransition(child: nextScreen, type: PageTransitionType.fade));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -38,23 +36,23 @@ class TeamsContainer extends StatelessWidget {
           child: Column(
             children: [
               Image.network(
-                result.teamLogo!,
+                logo,
                 fit: BoxFit.fill,
                 errorBuilder: (context, error, stackTrace) {
                   return Image.network(
                     "https://www.seekpng.com/png/full/28-289657_espn-soccer-team-logo-default.png",
-                    height: height * 0.08,
-                    width: width * 0.18,
+                    height: imageHeight,
+                    width: imageWidth,
                   );
                 },
-                height: height * 0.08,
-                width: width * 0.18,
+                height: imageHeight,
+                width: imageWidth,
               ),
               const Spacer(),
               Center(
                 child: FittedBox(
                   child: Text(
-                    result.teamName!,
+                    name,
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 10,
