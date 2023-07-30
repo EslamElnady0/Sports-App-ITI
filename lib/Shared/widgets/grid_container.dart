@@ -29,7 +29,7 @@ class GridContainer extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: componentsBackgroundColor,
+            color: kComponentsBackgroundColor,
             boxShadow: const [BoxShadow(blurRadius: 5)]),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: 10),

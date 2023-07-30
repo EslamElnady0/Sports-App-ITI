@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:sports_app/Data/Models/players/players.dart';
+import 'package:sports_app/Data/Models/Data%20Models/players/players.dart';
 import 'package:sports_app/constants/constants.dart';
 
 class PlayersRepo {

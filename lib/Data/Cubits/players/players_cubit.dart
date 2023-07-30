@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:sports_app/Data/Models/players/players.dart';
+import 'package:sports_app/Data/Models/Data%20Models/players/players.dart';
 import 'package:sports_app/Data/Repositries/players_repo.dart';
 
 part 'players_state.dart';

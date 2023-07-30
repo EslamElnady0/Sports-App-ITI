@@ -31,7 +31,7 @@ class SearchTextField extends StatelessWidget {
             hintText: "Search for a $query..",
             hintStyle: const TextStyle(color: Colors.grey),
             filled: true,
-            fillColor: componentsBackgroundColor,
+            fillColor: kComponentsBackgroundColor,
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
       ),

@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:sports_app/Data/Repositries/teams_repo.dart';
 
-import '../../Models/teams/teams.dart';
+import '../../Models/Data Models/teams/teams.dart';
 
 part 'teams_state.dart';
 

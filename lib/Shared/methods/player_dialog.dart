@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Data/Models/players/result.dart';
+import '../../Data/Models/Data Models/players/result.dart';
 import '../../constants/constants.dart';
 
 Future<dynamic> playerDialog(
@@ -128,7 +128,7 @@ Future<dynamic> playerDialog(
               ),
             ],
           ),
-          backgroundColor: componentsBackgroundColor,
+          backgroundColor: kComponentsBackgroundColor,
         );
       });
 }

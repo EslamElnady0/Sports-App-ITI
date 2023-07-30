@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:sports_app/Data/Models/Leagues/leagues.dart';
+import 'package:sports_app/Data/Models/Data%20Models/Leagues/leagues.dart';
 import 'package:http/http.dart' as http;
 import 'package:sports_app/constants/constants.dart';
 

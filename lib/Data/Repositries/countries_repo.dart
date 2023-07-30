@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:sports_app/Data/Models/Countries/countries.dart';
+import 'package:sports_app/Data/Models/Data%20Models/Countries/countries.dart';
 import 'package:sports_app/constants/constants.dart';
 
 class CountriesRepo {

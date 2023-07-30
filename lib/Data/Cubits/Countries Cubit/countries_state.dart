@@ -13,3 +13,5 @@ class CountriesSuccess extends CountriesState {
 }
 
 class CountriesFailure extends CountriesState {}
+
+class CountriesResult extends CountriesState {}

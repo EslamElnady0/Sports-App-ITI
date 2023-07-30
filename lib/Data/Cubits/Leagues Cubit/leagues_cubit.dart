@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import '../../Models/Leagues/leagues.dart';
+import '../../Models/Data Models/Leagues/leagues.dart';
 import '../../Repositries/leagues_repo.dart';
 
 part 'leagues_state.dart';
