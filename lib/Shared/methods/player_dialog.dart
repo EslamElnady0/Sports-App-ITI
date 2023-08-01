@@ -80,49 +80,49 @@ Future<dynamic> playerDialog(
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "From : ${playerList[index].playerCountry ?? "UnKnown"}",
+                  "From : ${playerList[index].playerCountry == '' ? "Unknown" : playerList[index].playerCountry ?? "Unknown"}",
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "Position : ${playerList[index].playerType ?? "UnKnown"}",
+                  "Position : ${playerList[index].playerType == '' ? "Unknown" : playerList[index].playerType ?? "UnKnown"}",
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "Age : ${playerList[index].playerAge ?? "UnKnown"}",
+                  "Age : ${playerList[index].playerAge == '' ? "Unknown" : playerList[index].playerAge ?? "UnKnown"}",
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "Yellow Cards : ${playerList[index].playerYellowCards ?? "UnKnown"}",
+                  "Yellow Cards : ${playerList[index].playerYellowCards == '' ? "Unknown" : playerList[index].playerYellowCards ?? "UnKnown"}",
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "Red Cards : ${playerList[index].playerRedCards ?? "UnKnown"}",
+                  "Red Cards : ${playerList[index].playerRedCards == '' ? "Unknown" : playerList[index].playerRedCards ?? "UnKnown"}",
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "Goals : ${playerList[index].playerGoals ?? "UnKnown"}",
+                  "Goals : ${playerList[index].playerGoals == '' ? "Unknown" : playerList[index].playerGoals ?? "UnKnown"}",
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "Assists : ${playerList[index].playerAssists ?? "UnKnown"}",
+                  "Assists : ${playerList[index].playerAssists == '' ? "Unknown" : playerList[index].playerAssists ?? "UnKnown"}",
                   style: const TextStyle(color: Colors.white),
                 ),
               ),

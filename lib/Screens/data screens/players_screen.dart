@@ -24,7 +24,7 @@ class PlayersScreen extends StatefulWidget {
 
 class _PlayersScreenState extends State<PlayersScreen> {
   TextEditingController searchController = TextEditingController();
-  late List<Result>? filteredList;
+  late List<Result>? filteredList = [];
   void searchItems(List<Result>? playersList, String value) {
     filteredList = playersList!
         .where((element) =>
@@ -116,33 +116,33 @@ class _PlayersScreenState extends State<PlayersScreen> {
                                     child: FadeInAnimation(
                                       curve: Curves.bounceIn,
                                       child: SlideAnimation(
-                                        horizontalOffset:
-                                            MediaQuery.of(context).size.width,
-                                        child: searchController.text.isEmpty
-                                            ? CustomListContainer(
-                                                onTap: () {
-                                                  playerDialog(context,
-                                                      playersList, index);
-                                                },
-                                                trailing: playersList[index]
-                                                    .playerType!,
-                                                playerName: playersList[index]
-                                                    .playerName!,
-                                                leading: playersList[index]
-                                                    .playerImage)
-                                            ///////////////////////////////////////////////////////////////////////////////////
-                                            : CustomListContainer(
-                                                onTap: () {
-                                                  playerDialog(context,
-                                                      filteredList!, index);
-                                                },
-                                                trailing: filteredList![index]
-                                                    .playerType!,
-                                                playerName: filteredList![index]
-                                                    .playerName!,
-                                                leading: filteredList![index]
-                                                    .playerImage),
-                                      ),
+                                          horizontalOffset:
+                                              MediaQuery.of(context).size.width,
+                                          child: searchController.text.isEmpty
+                                              ? CustomListContainer(
+                                                  onTap: () {
+                                                    playerDialog(context,
+                                                        playersList, index);
+                                                  },
+                                                  trailing: playersList[index]
+                                                      .playerType!,
+                                                  playerName: playersList[index]
+                                                      .playerName!,
+                                                  leading: playersList[index]
+                                                      .playerImage)
+                                              ///////////////////////////////////////////////////////////////////////////////////
+                                              : CustomListContainer(
+                                                  onTap: () {
+                                                    playerDialog(context,
+                                                        filteredList!, index);
+                                                  },
+                                                  trailing: filteredList![index]
+                                                      .playerType!,
+                                                  playerName:
+                                                      filteredList![index]
+                                                          .playerName!,
+                                                  leading: filteredList![index]
+                                                      .playerImage)),
                                     ),
                                   );
                                 }),
